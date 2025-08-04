@@ -10,7 +10,7 @@ export const createCheckoutSession = async (priceId: string): Promise<CheckoutRe
     const { data, error } = await supabase.functions.invoke('stripe-checkout', {
       body: { 
         price_id: priceId,
-        success_url: `${window.location.origin}/success`,
+        success_url: `${window.location.origin}/calendly`,
         cancel_url: `${window.location.origin}/programs`,
         mode: 'subscription'
       }

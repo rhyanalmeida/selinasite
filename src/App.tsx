@@ -14,6 +14,8 @@ import ArticlePage from './pages/ArticlePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import SuccessPage from './pages/SuccessPage';
+import BookingPage from './pages/BookingPage';
+import CalendlyPage from './pages/CalendlyPage';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
               <Route path="/success" element={<ProtectedRoute><SuccessPage /></ProtectedRoute>} />
+              <Route path="/booking" element={<ProtectedRoute><BookingPage /></ProtectedRoute>} />
+        <Route path="/calendly" element={<ProtectedRoute><CalendlyPage /></ProtectedRoute>} />
               {/* Catch all route - redirect to home */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
