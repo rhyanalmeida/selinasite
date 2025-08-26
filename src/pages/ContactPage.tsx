@@ -7,7 +7,7 @@ const ContactPage = () => {
     <>
       <Helmet>
         <title>Contact Us - Mountain Meditation & Yoga | Get in Touch</title>
-        <meta name="description" content="Contact Mountain Meditation & Yoga for online meditation classes, programs, and spiritual guidance available nationwide. Call +1 (555) 123-4567 for consultation." />
+        <meta name="description" content="Contact Mountain Meditation & Yoga for online meditation classes, programs, and spiritual guidance available nationwide. Call 347-456-3508 for consultation." />
         <meta name="keywords" content="contact meditation center, online meditation classes, virtual spiritual guidance, meditation consultation, nationwide service" />
         <link rel="canonical" href="https://mountainmeditation.com/contact" />
         <meta property="og:title" content="Contact Us - Mountain Meditation & Yoga" />

@@ -6,7 +6,6 @@ import Programs from '../components/Programs';
 import Testimonials from '../components/Testimonials';
 import BookingForm from '../components/BookingForm';
 import ResourcesPreview from '../components/ResourcesPreview';
-import AuthTest from '../components/AuthTest';
 
 const HomePage = () => {
   return (
@@ -27,8 +26,6 @@ const HomePage = () => {
         <ResourcesPreview />
         <Testimonials />
         <BookingForm />
-        {/* Temporary auth test - remove after testing */}
-        <AuthTest />
       </div>
     </>
   );

@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Check, Crown } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
 import { StripeProduct } from '../stripe-config';
-import { createCheckoutSession } from '../services/checkout';
+import { createCheckoutSession, loadStripe } from '../services/checkout';
 
 interface PricingCardProps {
   product: StripeProduct;
@@ -10,30 +9,37 @@ interface PricingCardProps {
 }
 
 const PricingCard: React.FC<PricingCardProps> = ({ product, featured = false }) => {
-  const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [stripeLoaded, setStripeLoaded] = useState(false);
+
+  useEffect(() => {
+    // Load Stripe when component mounts
+    loadStripe().then(() => {
+      setStripeLoaded(true);
+    });
+  }, []);
 
   const handleCheckout = async () => {
-    if (!user) {
-      // Store the intended product for checkout after login
-      sessionStorage.setItem('intended_product', product.priceId);
-      // Redirect to login if not logged in
-      window.location.href = '/login';
+    if (!stripeLoaded) {
+      alert('Please wait while we load the payment system...');
       return;
     }
 
+    setIsLoading(true);
+    
     try {
       const { url, error } = await createCheckoutSession(product.priceId);
       if (error) {
         console.error('Checkout error:', error);
-        alert('There was an error creating your checkout session. Please try again.');
+        alert(`Checkout error: ${error}`);
         return;
       }
-      if (url) {
-        window.location.href = url;
-      }
+      // Stripe will handle the redirect automatically
     } catch (error) {
       console.error('Checkout error:', error);
       alert('There was an error creating your checkout session. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,13 +81,14 @@ const PricingCard: React.FC<PricingCardProps> = ({ product, featured = false }) 
 
         <button
           onClick={handleCheckout}
+          disabled={isLoading || !stripeLoaded}
           className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
             featured
-              ? 'bg-gradient-to-r from-blue-600 to-green-600 text-white hover:shadow-lg hover:scale-105'
-              : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+              ? 'bg-gradient-to-r from-blue-600 to-green-600 text-white hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed'
+              : 'bg-gray-100 text-gray-900 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed'
           }`}
         >
-          {user ? 'Get Started' : 'Sign Up to Start'}
+          {isLoading ? 'Loading...' : !stripeLoaded ? 'Loading Payment...' : 'Get Started Now'}
         </button>
       </div>
     </div>

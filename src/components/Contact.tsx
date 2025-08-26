@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, Calendar } from 'lucide-react';
 
 const Contact = () => {
   return (
@@ -12,6 +12,24 @@ const Contact = () => {
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
             Ready to begin your meditation journey? We're here to guide you every step of the way.
           </p>
+        </div>
+
+        {/* Call-to-Action for Booking */}
+        <div className="bg-gradient-to-r from-blue-50 to-green-50 p-8 rounded-2xl mb-12 text-center">
+          <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Calendar className="w-10 h-10 text-blue-600" />
+          </div>
+          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Ready to Book Your Session?</h3>
+          <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+            After completing your payment, call us to schedule your personalized meditation or yoga session.
+          </p>
+          <div className="bg-white p-6 rounded-xl inline-block">
+            <div className="flex items-center justify-center space-x-3 mb-3">
+              <Phone className="w-6 h-6 text-blue-600" />
+              <span className="text-xl font-bold text-gray-900">347-456-3508</span>
+            </div>
+            <p className="text-gray-600 text-sm">Call now to book your session</p>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">

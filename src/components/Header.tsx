@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import SubscriptionStatus from './SubscriptionStatus';
-import { Menu, X, User, LogOut } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const { user, signOut } = useAuth();
   const location = useLocation();
 
   const navigation = [
@@ -23,11 +19,6 @@ const Header = () => {
       return location.pathname === '/';
     }
     return location.pathname.startsWith(path);
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    setIsUserMenuOpen(false);
   };
 
   return (
@@ -64,54 +55,6 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Desktop Auth */}
-          <div className="hidden md:flex items-center space-x-4">
-            {user ? (
-              <div className="relative">
-                <button
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors"
-                >
-                  <User className="w-5 h-5" />
-                  <span className="text-sm font-medium">
-                    {user.email?.split('@')[0]}
-                  </span>
-                </button>
-
-                {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
-                    <div className="px-4 py-3 border-b border-gray-200">
-                      <p className="text-sm font-medium text-gray-900">{user.email}</p>
-                      <SubscriptionStatus />
-                    </div>
-                    <button
-                      onClick={handleSignOut}
-                      className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      <span>Sign Out</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex items-center space-x-3">
-                <Link
-                  to="/login"
-                  className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/signup"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
-                >
-                  Get Started
-                </Link>
-              </div>
-            )}
-          </div>
-
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
@@ -145,56 +88,10 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              
-              {/* Mobile Auth */}
-              <div className="border-t border-gray-200 pt-4">
-                {user ? (
-                  <div className="space-y-2">
-                    <div className="px-3 py-2">
-                      <p className="text-sm font-medium text-gray-900">{user.email}</p>
-                      <div className="mt-2">
-                        <SubscriptionStatus />
-                      </div>
-                    </div>
-                    <button
-                      onClick={handleSignOut}
-                      className="w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 flex items-center space-x-2"
-                    >
-                      <LogOut className="w-5 h-5" />
-                      <span>Sign Out</span>
-                    </button>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    <Link
-                      to="/login"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-                    >
-                      Sign In
-                    </Link>
-                    <Link
-                      to="/signup"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="block px-3 py-2 text-base font-medium bg-blue-600 text-white rounded-lg mx-3 text-center hover:bg-blue-700 transition-colors"
-                    >
-                      Get Started
-                    </Link>
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         )}
       </nav>
-
-      {/* Click outside to close user menu */}
-      {isUserMenuOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setIsUserMenuOpen(false)}
-        />
-      )}
     </header>
   );
 };

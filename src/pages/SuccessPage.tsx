@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { CheckCircle, ArrowRight, Calendar, Star } from 'lucide-react';
+import { CheckCircle, ArrowRight, Phone, Star, Heart, Calendar } from 'lucide-react';
+import { getProductByPriceId } from '../stripe-config';
 
 const SuccessPage = () => {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const [loading, setLoading] = useState(true);
-  const [calendlyLoaded, setCalendlyLoaded] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
   useEffect(() => {
+    // Get selected product from sessionStorage
+    const priceId = sessionStorage.getItem('selected_product');
+    if (priceId) {
+      const product = getProductByPriceId(priceId);
+      setSelectedProduct(product);
+    }
+
     // Simulate loading time for better UX
     const timer = setTimeout(() => {
       setLoading(false);
@@ -17,24 +25,6 @@ const SuccessPage = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    // Load Calendly script
-    if (!calendlyLoaded) {
-      const script = document.createElement('script');
-      script.src = 'https://assets.calendly.com/assets/external/widget.js';
-      script.async = true;
-      document.body.appendChild(script);
-      setCalendlyLoaded(true);
-
-      return () => {
-        // Clean up script when component unmounts
-        if (document.body.contains(script)) {
-          document.body.removeChild(script);
-        }
-      };
-    }
-  }, [calendlyLoaded]);
 
   if (loading) {
     return (
@@ -79,17 +69,34 @@ const SuccessPage = () => {
                 </p>
               </div>
 
+              {/* Selected Plan Info */}
+              {selectedProduct && (
+                <div className="bg-green-50 rounded-2xl p-6 mb-8 text-center">
+                  <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Heart className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Selected Plan</h3>
+                  <div className="bg-white p-4 rounded-lg mb-4">
+                    <p className="text-green-800 font-medium text-lg">{selectedProduct.name}</p>
+                    <p className="text-green-600 text-sm">${selectedProduct.price}/{selectedProduct.billing}</p>
+                  </div>
+                  <p className="text-gray-600 text-sm">
+                    You now have access to all features included in this plan
+                  </p>
+                </div>
+              )}
+
               {/* What's Next */}
               <div className="bg-gray-50 rounded-2xl p-6 mb-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">What's Next?</h3>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <div className="bg-blue-100 p-2 rounded-full flex-shrink-0">
-                      <Calendar className="w-5 h-5 text-blue-600" />
+                      <Phone className="w-5 h-5 text-blue-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Schedule Your First Session</h4>
-                      <p className="text-gray-600 text-sm">Book a personalized session with our expert instructors</p>
+                      <h4 className="font-semibold text-gray-900">Call to Book Your Session</h4>
+                      <p className="text-gray-600 text-sm">Contact us at <strong>347-456-3508</strong> to schedule your personalized session</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -104,6 +111,24 @@ const SuccessPage = () => {
                 </div>
               </div>
 
+              {/* Contact Information */}
+              <div className="bg-blue-50 rounded-2xl p-6 mb-8 text-center">
+                <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Calendar className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Ready to Book?</h3>
+                <p className="text-gray-600 mb-4">
+                  Your subscription is active and you're ready to start your meditation journey!
+                </p>
+                <div className="bg-white p-4 rounded-lg mb-4">
+                  <p className="text-blue-800 font-medium text-lg">📞 Call <strong>347-456-3508</strong></p>
+                  <p className="text-blue-600 text-sm">to schedule your first session</p>
+                </div>
+                <p className="text-gray-600 text-sm">
+                  Our team will help you choose the perfect time and program for your needs
+                </p>
+              </div>
+
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
@@ -114,29 +139,11 @@ const SuccessPage = () => {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
-                  to="/"
+                  to="/contact"
                   className="flex-1 border-2 border-blue-600 text-blue-600 py-3 px-6 rounded-lg font-semibold hover:bg-blue-50 transition-all text-center"
                 >
-                  Return Home
+                  Contact Us
                 </Link>
-              </div>
-
-              {/* Calendly Booking Widget */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Schedule Your First Session</h3>
-                <p className="text-gray-600 text-center mb-8">
-                  Book your personalized meditation session with Shopna Khidr. This booking system is exclusively available to our subscribers.
-                </p>
-                <div className="bg-blue-50 p-4 rounded-lg mb-6 text-center">
-                  <p className="text-blue-800 font-medium">✓ Payment Confirmed ✓ Account Active ✓ Ready to Book</p>
-                </div>
-                <div className="bg-gray-50 rounded-2xl p-4">
-                  <div 
-                    className="calendly-inline-widget" 
-                    data-url="https://calendly.com/selinaaktherbusiness/30min" 
-                    style={{ minWidth: '320px', height: '700px' }}
-                  ></div>
-                </div>
               </div>
 
               {/* Support */}
@@ -154,7 +161,7 @@ const SuccessPage = () => {
               {sessionId && (
                 <div className="mt-6 p-4 bg-gray-100 rounded-lg">
                   <p className="text-xs text-gray-500">
-                    Transaction ID: {sessionId}
+                    Stripe Session ID: {sessionId}
                   </p>
                 </div>
               )}

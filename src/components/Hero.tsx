@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
 import { Play, Star, Users, Award, ChevronRight } from 'lucide-react';
 
 const Hero = () => {
-  const { user } = useAuth();
-
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 overflow-hidden">
       {/* Background decoration */}
@@ -52,23 +49,13 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-              {user ? (
-                <Link
-                  to="/programs"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-green-600 text-white font-semibold rounded-full hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  <span>Explore Programs</span>
-                  <ChevronRight className="w-5 h-5 ml-2" />
-                </Link>
-              ) : (
-                <Link
-                  to="/signup"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-green-600 text-white font-semibold rounded-full hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  <span>Start Your Journey</span>
-                  <ChevronRight className="w-5 h-5 ml-2" />
-                </Link>
-              )}
+              <Link
+                to="/programs"
+                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-green-600 text-white font-semibold rounded-full hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              >
+                <span>View Programs</span>
+                <ChevronRight className="w-5 h-5 ml-2" />
+              </Link>
               
               <Link
                 to="#about"
