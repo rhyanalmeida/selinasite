@@ -3,8 +3,8 @@ export interface CheckoutResponse {
   error?: string;
 }
 
-// Stripe configuration - in production, these would come from environment variables
-const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_live_51Rht82ArWwnUoTZRP9XWQbTy3ZDgC46t0Sihr4krKHbckkPiRoBTNVFvQ9XugDl2vsd0UqLYr18zZOrssEgGAkXS00HLVDXC5Z';
+// Stripe configuration - using test key for now
+const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_test_51Rht82ArWwnUoTZR1234567890abcdefghijklmnopqrstuv';
 
 export const createCheckoutSession = async (priceId: string): Promise<CheckoutResponse> => {
   try {

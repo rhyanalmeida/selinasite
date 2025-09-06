@@ -11,8 +11,8 @@ export interface StripeProduct {
 
 export const stripeProducts: StripeProduct[] = [
   {
-    id: 'prod_SinnCcKF5fkqJ1',
-    priceId: 'price_1RnMCIArWwnUoTZRYPsy52I0',
+    id: 'prod_T0UZG5g0LSyR8a',
+    priceId: 'price_1S4TbYArWwnUoTZRjogCOoDi',
     name: 'Complete Wellness Access',
     description: 'Only $25.00 for one week, consultation and unlock unlimited access and choose according to your needs. Our plan offers a holistic approach to healing, growth, and self-care, available anywhere.',
     price: 25.00,
@@ -28,8 +28,8 @@ export const stripeProducts: StripeProduct[] = [
     ]
   },
   {
-    id: 'prod_Simx9M0wOBLUtn',
-    priceId: 'price_1RnLNlArWwnUoTZRSAHkxR7x',
+    id: 'prod_T0UZmyeybDeudi',
+    priceId: 'price_1S4TbZArWwnUoTZRQ9eWgl1w',
     name: 'Unlimited Meditations',
     description: 'Booked from anywhere. Unlimited Meditations: Stress relief, emotional healing, sleep improvement, self-love, and success-focused sessions.',
     price: 25.00,
@@ -46,8 +46,8 @@ export const stripeProducts: StripeProduct[] = [
     ]
   },
   {
-    id: 'prod_SimkBzDpTxTD9t',
-    priceId: 'price_1RnLAdArWwnUoTZRS1M1zhYO',
+    id: 'prod_T0UZlhJgLkPoZR',
+    priceId: 'price_1S4TbaArWwnUoTZREnw4cg6r',
     name: 'Holistic Healing Plan',
     description: 'Our plan offers a holistic approach to natural healing, growth, and self-care, available anytime, anywhere.',
     price: 25.00,
@@ -63,8 +63,8 @@ export const stripeProducts: StripeProduct[] = [
     ]
   },
   {
-    id: 'prod_SimhaURN1mQz9d',
-    priceId: 'price_1RnL7eArWwnUoTZRYBAAVCJN',
+    id: 'prod_T0UZTvlPMTrU9R',
+    priceId: 'price_1S4TbaArWwnUoTZRAcHh63Ex',
     name: 'Unlimited Yoga Classes',
     description: 'Unlimited Yoga Classes: Yoga for physical health, emotional balance, and mental well-being.',
     price: 25.00,
@@ -81,8 +81,8 @@ export const stripeProducts: StripeProduct[] = [
     ]
   },
   {
-    id: 'prod_SimfAqsneO3MF7',
-    priceId: 'price_1RnL60ArWwnUoTZRE3CZffxv',
+    id: 'prod_T0UZfK8oKuvhEO',
+    priceId: 'price_1S4TbaArWwnUoTZRrEbxWrcZ',
     name: 'Relationship Counseling',
     description: 'Unlimited Counseling for conflicts relationship $25/Hours - Billed Monthly $25.00',
     price: 25.00,
@@ -99,8 +99,8 @@ export const stripeProducts: StripeProduct[] = [
     ]
   },
   {
-    id: 'prod_SimDXTceKR6mnE',
-    priceId: 'price_1RnKfHArWwnUoTZRTVUfY2dm',
+    id: 'prod_T0UZgaUivcFziH',
+    priceId: 'price_1S4TbbArWwnUoTZRJIKAqDyh',
     name: 'Guided Meditations Premium',
     description: 'Unlimited Guided Meditations: Relief Anxiety, Stress relief, emotional healing, sleep improvement, self-love, self awareness. $25/week – Billed Monthly',
     price: 25.00,
